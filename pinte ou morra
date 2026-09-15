@@ -1,22 +1,18 @@
--- LocalScript (por exemplo, em StarterPlayerScripts)
--- Aplica um efeito de destaque a um objeto especifico no jogo
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
 
-local Workspace = game:GetService("Workspace")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
 
-local function createHighlight(targetModel)
-    if not targetModel then return end
+-- Referência para a interface do jogador (exemplo de nome: MainMenu)
+local screenGui = playerGui:WaitForChild("MainMenu")
+
+-- Alterna a visibilidade ao pressionar a tecla K
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    -- Evita ativar o atalho enquanto o jogador digita no chat
+    if gameProcessed then return end
     
-    -- Cria a instancia de Highlight nativa do Roblox
-    local highlight = Instance.new("Highlight")
-    highlight.Name = "CustomObjectHighlight"
-    highlight.FillColor = Color3.fromRGB(255, 0, 0) -- Cor do preenchimento
-    highlight.FillTransparency = 0.5 -- Transparencia do preenchimento
-    highlight.OutlineColor = Color3.fromRGB(255, 255, 255) -- Cor do contorno
-    highlight.OutlineTransparency = 0
-    
-    -- AlwaysOnTop define se o destaque sera visivel através de paredes
-    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-    
-    -- Associa o destaque ao modelo desejado
-    highlight.Parent = targetModel
-end
+    if input.KeyCode == Enum.KeyCode.K then
+        screenGui.Enabled = not screenGui.Enabled
+    end
+end)
