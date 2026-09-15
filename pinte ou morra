@@ -1,0 +1,22 @@
+-- LocalScript (por exemplo, em StarterPlayerScripts)
+-- Aplica um efeito de destaque a um objeto especifico no jogo
+
+local Workspace = game:GetService("Workspace")
+
+local function createHighlight(targetModel)
+    if not targetModel then return end
+    
+    -- Cria a instancia de Highlight nativa do Roblox
+    local highlight = Instance.new("Highlight")
+    highlight.Name = "CustomObjectHighlight"
+    highlight.FillColor = Color3.fromRGB(255, 0, 0) -- Cor do preenchimento
+    highlight.FillTransparency = 0.5 -- Transparencia do preenchimento
+    highlight.OutlineColor = Color3.fromRGB(255, 255, 255) -- Cor do contorno
+    highlight.OutlineTransparency = 0
+    
+    -- AlwaysOnTop define se o destaque sera visivel através de paredes
+    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+    
+    -- Associa o destaque ao modelo desejado
+    highlight.Parent = targetModel
+end
